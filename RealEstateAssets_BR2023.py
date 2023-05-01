@@ -9,17 +9,17 @@ import streamlit as st
 plt.rcParams['font.family'] = 'monospace'
 plt.rcParams['font.size'] = 8
 plt.rcParams['font.weight'] = 'bold'
+plt.rcParams['figure.facecolor'] = '#464545' 
+plt.rcParams['axes.facecolor'] = '#464545' 
 plt.rcParams['axes.titleweight'] = 'bold'
 plt.rcParams['axes.titlecolor'] = 'black'
 plt.rcParams['axes.titlesize'] = 10
-plt.rcParams['axes.spines.bottom'] = True
 plt.rcParams['axes.labelcolor'] = 'darkgray'
 plt.rcParams['axes.labelweight'] = 'bold'
 plt.rcParams['axes.edgecolor'] = 'darkgray'
 plt.rcParams['axes.linewidth'] = 0.2
 plt.rcParams['ytick.color'] = 'darkgray'
 plt.rcParams['xtick.color'] = 'darkgray'
-plt.rcParams['figure.facecolor'] = '#464545'
 plt.rcParams['axes.titlecolor'] = '#FFFFFF'
 plt.rcParams['axes.titlecolor'] = 'white'
 plt.rcParams['axes.edgecolor'] = 'darkgray'
@@ -179,9 +179,9 @@ st.dataframe(
 
 st.markdown(''' > **REFEÊNCIAS (Valorização 12 meses):**
 
-* IPCA: **6% a.a.**
-* IGP-M: **4% a.a.**
-* Índice FipeZAP+: **6% a.a.**
+* IPCA: **6%**
+* IGP-M: **4%**
+* Índice FipeZAP+: **6%**
 
 > Dados baseados nos informes FipeZAP (leva em conta imóveis residenciais para 50 cidades brasilieras).
 ''')
