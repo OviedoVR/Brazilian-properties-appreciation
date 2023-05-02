@@ -27,14 +27,14 @@ plt.rcParams['axes.linewidth'] = 0.85
 plt.rcParams['ytick.major.size'] = 0
 
 # --- App (begin):
-BR_real_estate_appreciation = pd.read_csv('BR_real_estate_appreciation_2023.csv')
+BR_real_estate_appreciation = pd.read_csv('data/BR_real_estate_appreciation_2023.csv')
 BR_real_estate_appreciation['Valorizacao_anual_12m'] = round(BR_real_estate_appreciation['Valorizacao_anual_12m'], 2)*100
 BR_real_estate_appreciation['BRL_metro_quad'] = BR_real_estate_appreciation['BRL_metro_quad']
 
 # Page setup:
 st.set_page_config(
-    page_title="Imóveis Residencais (Brasil)",
-    page_icon="🧊",
+    page_title="Imóveis Residencais (BRASIL)",
+    page_icon="🏢",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
