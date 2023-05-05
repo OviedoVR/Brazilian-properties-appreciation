@@ -27,9 +27,9 @@ plt.rcParams['axes.linewidth'] = 0.85
 plt.rcParams['ytick.major.size'] = 0
 
 # --- App (begin):
-BR_real_estate_appreciation = pd.read_csv('data/BR_real_estate_appreciation_2023.csv')
-BR_real_estate_appreciation['Valorizacao_anual_12m'] = round(BR_real_estate_appreciation['Valorizacao_anual_12m'], 2)*100
-BR_real_estate_appreciation['BRL_metro_quad'] = BR_real_estate_appreciation['BRL_metro_quad']
+BR_real_estate_appreciation = pd.read_csv('data/BR_real_estate_appreciation_Q1_2023.csv')
+BR_real_estate_appreciation['Annual_appreciation'] = round(BR_real_estate_appreciation['Annual_appreciation'], 2)*100
+BR_real_estate_appreciation['BRL_per_squared_meter'] = BR_real_estate_appreciation['BRL_per_squared_meter']
 
 # Page setup:
 st.set_page_config(
@@ -51,7 +51,7 @@ st.sidebar.markdown(''' > **How to use this app**
 ''')
 
 # Widgets:
-cities = sorted(list(BR_real_estate_appreciation['Cidade_estado'].unique()))
+cities = sorted(list(BR_real_estate_appreciation['Location'].unique()))
 city_selection = st.selectbox(
     '🌎 Select a city',
     cities
@@ -59,15 +59,15 @@ city_selection = st.selectbox(
 
 # City selection:
 your_city = city_selection
-selected_city = BR_real_estate_appreciation.query('Cidade_estado == @your_city')
-other_cities = BR_real_estate_appreciation.query('Cidade_estado != @your_city')
+selected_city = BR_real_estate_appreciation.query('Location == @your_city')
+other_cities = BR_real_estate_appreciation.query('Location != @your_city')
 
 # CHART 1: Annual appreciation (12 months):
 chart_1, ax = plt.subplots(figsize=(3, 4.125))
 # Background:
 sns.stripplot(
     data= other_cities,
-    y = 'Valorizacao_anual_12m',
+    y = 'Annual_appreciation',
     color = 'white',
     jitter=0.85,
     size=8,
@@ -78,7 +78,7 @@ sns.stripplot(
 # Highlight:
 sns.stripplot(
     data= selected_city,
-    y = 'Valorizacao_anual_12m',
+    y = 'Annual_appreciation',
     color = '#00FF7F',
     jitter=0.15,
     size=12,
@@ -88,9 +88,9 @@ sns.stripplot(
 )
 
 # Showing up position measures:
-avg_annual_val = BR_real_estate_appreciation['Valorizacao_anual_12m'].median()
-q1__annual_val = np.percentile(BR_real_estate_appreciation['Valorizacao_anual_12m'], 25)
-q3__annual_val = np.percentile(BR_real_estate_appreciation['Valorizacao_anual_12m'], 75)
+avg_annual_val = BR_real_estate_appreciation['Annual_appreciation'].median()
+q1__annual_val = np.percentile(BR_real_estate_appreciation['Annual_appreciation'], 25)
+q3__annual_val = np.percentile(BR_real_estate_appreciation['Annual_appreciation'], 75)
 
 # Plotting lines (reference):
 ax.axhline(y=avg_annual_val, color='#DA70D6', linestyle='--', lw=0.75)
@@ -120,7 +120,7 @@ chart_2, ax = plt.subplots(figsize=(3, 3.95))
 # Background:
 sns.stripplot(
     data= other_cities,
-    y = 'BRL_metro_quad',
+    y = 'BRL_per_squared_meter',
     color = 'white',
     jitter=0.95,
     size=8,
@@ -131,7 +131,7 @@ sns.stripplot(
 # Highlight:
 sns.stripplot(
     data= selected_city,
-    y = 'BRL_metro_quad',
+    y = 'BRL_per_squared_meter',
     color = '#00FF7F',
     jitter=0.15,
     size=12,
@@ -141,9 +141,9 @@ sns.stripplot(
 )
 
 # Showing up position measures:
-avg_price_m2 = BR_real_estate_appreciation['BRL_metro_quad'].median()
-q1_price_m2 = np.percentile(BR_real_estate_appreciation['BRL_metro_quad'], 25)
-q3_price_m2 = np.percentile(BR_real_estate_appreciation['BRL_metro_quad'], 75)
+avg_price_m2 = BR_real_estate_appreciation['BRL_per_squared_meter'].median()
+q1_price_m2 = np.percentile(BR_real_estate_appreciation['BRL_per_squared_meter'], 25)
+q3_price_m2 = np.percentile(BR_real_estate_appreciation['BRL_per_squared_meter'], 75)
 
 # Plotting lines (reference):
 ax.axhline(y=avg_price_m2, color='#DA70D6', linestyle='--', lw=0.75)
@@ -190,9 +190,9 @@ st.markdown('''
 
 # Showing up the numerical data (as a dataframe):
 st.dataframe(
-    BR_real_estate_appreciation.query('Cidade_estado == @your_city')[[
-      'Cidade_estado', 'Valorizacao_anual_12m', 
-      'BRL_metro_quad']]
+    BR_real_estate_appreciation.query('Location == @your_city')[[
+      'Location', 'Annual_appreciation', 
+      'BRL_per_squared_meter']]
 )
 
 # Adding some reference indexes:
@@ -213,7 +213,7 @@ st.markdown(''' **Built by Vinícius Oviedo**
 [![Linkedin Badge](https://img.shields.io/badge/-Linkedin-0A66C2?&logo=Linkedin&link=https://www.linkedin.com/in/vinicius-oviedo/)](https://www.linkedin.com/in/vinicius-oviedo/)
 [![GitHub Badge](https://img.shields.io/badge/-GitHub-black?&logo=Medium&link=https://github.com/OviedoVR)](https://github.com/OviedoVR)
 [![Medium Badge](https://img.shields.io/badge/-Medium-green?&logo=Medium&link=https://medium.com/@vo.freelancer5)](https://medium.com/@vo.freelancer5/)
-[![Website Badge](https://img.shields.io/badge/-Website-whitesmoke?&link=https://oviedovr.github.io/OviedoVR-ViniciusOviedo.github.io/)](https://oviedovr.github.io/OviedoVR-ViniciusOviedo.github.io/)
+[![Website Badge](https://img.shields.io/badge/-Website-whitesmoke?&link=https://oviedovr.github.io/DataAndLaTeX/)](https://oviedovr.github.io/DataAndLaTeX/)
 ''')
 st.markdown('---')
 # --- (End of the App)
