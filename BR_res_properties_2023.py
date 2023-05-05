@@ -1,11 +1,11 @@
-# Módulos/pacotes:
+# Modules:
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-# Setup Storytelling (matplotlib):
+# Setup for Storytelling (matplotlib):
 plt.rcParams['font.family'] = 'monospace'
 plt.rcParams['font.size'] = 8
 plt.rcParams['font.weight'] = 'bold'
@@ -33,27 +33,27 @@ BR_real_estate_appreciation['BRL_metro_quad'] = BR_real_estate_appreciation['BRL
 
 # Page setup:
 st.set_page_config(
-    page_title="Imóveis Residencais (BRASIL)",
+    page_title="Residential properties (Brazil)",
     page_icon="🏢",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
 
 # Header:
-st.markdown('### Valorização de imóveis residenciais no Brasil')
+st.markdown('### Appreciation of residential properties in Brazil')
 
-st.sidebar.markdown('''> **Como utilizar este aplicativo**
+st.sidebar.markdown(''' > **How to use this app**
 
-1. Selecionar uma cidade (*ponto verde*)
-2. Comparar nos gráficos com as outras cidades (*pontos brancos*)
-3. Comparar com a *média nacional* e com a distribuição dos dados
-4. **Extrair insights:** valorização acima da média e preço abaixo = possível *oportunindade*
+1. To Select a city (**green dot**).
+2. To compare for the selected city against other 50 cities (**white dots**).
+3. To compare the chosen city against **national average** and the data distribution.
+4. To extract insights as "An appreciation above national average & price by square meter below average = possible *opportunity*".
 ''')
 
 # Widgets:
 cities = sorted(list(BR_real_estate_appreciation['Cidade_estado'].unique()))
 city_selection = st.selectbox(
-    '🌎 Selecione uma cidade',
+    '🌎 Select a city',
     cities
 )
 
@@ -99,7 +99,7 @@ ax.axhline(y=q3__annual_val, color='white', linestyle='--', lw=0.75)
 
 # Adding the labels for position measures:
 ax.text(1.15, q1__annual_val, 'Q1', ha='center', va='center', color='white', fontsize=8, fontweight='bold')
-ax.text(1.3, avg_annual_val, 'Mediana', ha='center', va='center', color='#DA70D6', fontsize=8, fontweight='bold')
+ax.text(1.3, avg_annual_val, 'Median', ha='center', va='center', color='#DA70D6', fontsize=8, fontweight='bold')
 ax.text(1.15, q3__annual_val, 'Q3', ha='center', va='center', color='white', fontsize=8, fontweight='bold')
 
 # to fill the area between the lines:
@@ -109,8 +109,8 @@ ax.set_xlim(-1, 1)
 
 # Axes and titles:
 plt.xticks([])
-plt.ylabel('Valorização média %')
-plt.title('Valorização (%) nos últimos 12 meses', weight='bold', loc='center', pad=15, color='gainsboro')
+plt.ylabel('Average appreciation (%)')
+plt.title('Appreciation (%) in the past 12 months', weight='bold', loc='center', pad=15, color='gainsboro')
 plt.legend(loc='center', bbox_to_anchor=(0.5, -0.1), ncol=2, framealpha=0, labelcolor='#00FF7F')
 plt.tight_layout()
 
@@ -152,7 +152,7 @@ ax.axhline(y=q3_price_m2, color='white', linestyle='--', lw=0.75)
 
 # Adding the labels for position measures:
 ax.text(1.15, q1_price_m2, 'Q1', ha='center', va='center', color='white', fontsize=8, fontweight='bold')
-ax.text(1.35, avg_price_m2, 'Mediana', ha='center', va='center', color='#DA70D6', fontsize=8, fontweight='bold')
+ax.text(1.35, avg_price_m2, 'Median', ha='center', va='center', color='#DA70D6', fontsize=8, fontweight='bold')
 ax.text(1.15, q3_price_m2, 'Q3', ha='center', va='center', color='white', fontsize=8, fontweight='bold')
 
 # to fill the area between the lines:
@@ -162,9 +162,9 @@ ax.set_xlim(-1, 1)
 
 # Axes and titles:
 plt.xticks([])
-plt.ylabel('Preço (R\$)')
+plt.ylabel('Price (R\$)')
 plt.legend(loc='center', bbox_to_anchor=(0.5, -0.1), ncol=2, framealpha=0, labelcolor='#00FF7F')
-plt.title('Preço médio (R\$) por $m^2$', weight='bold', loc='center', pad=15, color='gainsboro')
+plt.title('Average price (R\$) by $m^2$', weight='bold', loc='center', pad=15, color='gainsboro')
 plt.tight_layout()
 
 # Splitting the charts into two columns:
@@ -178,12 +178,12 @@ with right:
 
 # Informational text:
 st.markdown('''
-<span style="color:white;font-size:10pt"> ⚪ Cada ponto representa uma cidade </span>
-<span style="color:#DA70D6;font-size:10pt"> ▫ <b> Valor médio </b></span>
-<span style="color:white;font-size:10pt"> ◽ Valores menores (<b> fundo </b>)
-◽ Valores maiores (<b> topo </b>) <br>
-◽ **Q1** (primeiro quartil): representa 25% dos dados
-◽ **Q3** (teceiro quartil): representa 75% dos dados
+<span style="color:white;font-size:10pt"> ⚪ Each point represents a city </span>
+<span style="color:#DA70D6;font-size:10pt"> ▫ <b> Average value </b></span>
+<span style="color:white;font-size:10pt"> ◽ Lowest values (<b> bottom </b>)
+◽ Highest values (<b> top </b>) <br>
+◽ **Q1** (first quartile): where 25% of data falls under
+◽ **Q3** (third quartile): where 75% of data falls under
 </span>
 
 ''',unsafe_allow_html=True)
@@ -196,20 +196,19 @@ st.dataframe(
 )
 
 # Adding some reference indexes:
-st.markdown(''' > **REFEÊNCIAS (Valorização 12 meses):**
+st.markdown(''' > **Reference indexes (inflation):**
 
-* IPCA: **6%**
-* IGP-M: **4%**
-* Índice FipeZAP+: **6%**
+* IPCA: **6%** (National Broad Consumer Price Index)
+* IGP-M: **4%** (General Market Price Index)
 
-> Dados baseados nos informes FipeZAP (leva em conta imóveis residenciais para 50 cities brasilieras).
+> Data based on public informs that accounts residential properties for 50 Brazilian cities (first quarter of 2023).
 ''')
 
 # Authorship:
 st.markdown('---')
-st.markdown(''' **Criado por Vinícius Oviedo**  
+st.markdown(''' **Built by Vinícius Oviedo**  
 
-*(mais informações na barra lateral - expandir)*
+*(further information on the sidebar - to expand it)*
 
 [![Linkedin Badge](https://img.shields.io/badge/-Linkedin-0A66C2?&logo=Linkedin&link=https://www.linkedin.com/in/vinicius-oviedo/)](https://www.linkedin.com/in/vinicius-oviedo/)
 [![GitHub Badge](https://img.shields.io/badge/-GitHub-black?&logo=Medium&link=https://github.com/OviedoVR)](https://github.com/OviedoVR)
