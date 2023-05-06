@@ -39,7 +39,7 @@ st.set_page_config(
 )
 
 # Header:
-st.markdown('### Appreciation of residential properties in Brazil')
+st.header('Appreciation of residential properties in Brazil')
 
 st.sidebar.markdown(''' > **How to use this app**
 
