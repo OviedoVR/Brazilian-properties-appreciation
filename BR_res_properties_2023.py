@@ -29,7 +29,6 @@ plt.rcParams['ytick.major.size'] = 0
 # --- App (begin):
 BR_real_estate_appreciation = pd.read_csv('data/BR_real_estate_appreciation_Q1_2023.csv')
 BR_real_estate_appreciation['Annual_appreciation'] = round(BR_real_estate_appreciation['Annual_appreciation'], 2)*100
-BR_real_estate_appreciation['BRL_per_squared_meter'] = BR_real_estate_appreciation['BRL_per_squared_meter']
 
 # Page setup:
 st.set_page_config(
@@ -89,21 +88,21 @@ sns.stripplot(
 
 # Showing up position measures:
 avg_annual_val = BR_real_estate_appreciation['Annual_appreciation'].median()
-q1__annual_val = np.percentile(BR_real_estate_appreciation['Annual_appreciation'], 25)
-q3__annual_val = np.percentile(BR_real_estate_appreciation['Annual_appreciation'], 75)
+q1_annual_val = np.percentile(BR_real_estate_appreciation['Annual_appreciation'], 25)
+q3_annual_val = np.percentile(BR_real_estate_appreciation['Annual_appreciation'], 75)
 
 # Plotting lines (reference):
 ax.axhline(y=avg_annual_val, color='#DA70D6', linestyle='--', lw=0.75)
-ax.axhline(y=q1__annual_val, color='white', linestyle='--', lw=0.75)
-ax.axhline(y=q3__annual_val, color='white', linestyle='--', lw=0.75)
+ax.axhline(y=q1_annual_val, color='white', linestyle='--', lw=0.75)
+ax.axhline(y=q3_annual_val, color='white', linestyle='--', lw=0.75)
 
 # Adding the labels for position measures:
-ax.text(1.15, q1__annual_val, 'Q1', ha='center', va='center', color='white', fontsize=8, fontweight='bold')
+ax.text(1.15, q1_annual_val, 'Q1', ha='center', va='center', color='white', fontsize=8, fontweight='bold')
 ax.text(1.3, avg_annual_val, 'Median', ha='center', va='center', color='#DA70D6', fontsize=8, fontweight='bold')
-ax.text(1.15, q3__annual_val, 'Q3', ha='center', va='center', color='white', fontsize=8, fontweight='bold')
+ax.text(1.15, q3_annual_val, 'Q3', ha='center', va='center', color='white', fontsize=8, fontweight='bold')
 
 # to fill the area between the lines:
-ax.fill_betweenx([q1__annual_val, q3__annual_val], -2, 1, alpha=0.2, color='gray')
+ax.fill_betweenx([q1_annual_val, q3_annual_val], -2, 1, alpha=0.2, color='gray')
 # to set the x-axis limits to show the full range of the data:
 ax.set_xlim(-1, 1)
 
