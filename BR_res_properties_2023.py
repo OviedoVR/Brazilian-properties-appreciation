@@ -216,3 +216,4 @@ st.markdown(''' **Built by Vinícius Oviedo**
 ''')
 st.markdown('---')
 # --- (End of the App)
+=
